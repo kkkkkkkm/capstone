@@ -163,7 +163,7 @@ ensemble_model.fit(
 
 ```
 
-Confusion Matrix 생성
+Confusion Matrix 생성 및 F1 Score 확인
 ```python
 LABELS = ['Warts', 'Corns', 'Noraml Skin']
 
