@@ -189,15 +189,63 @@ def confusion_norm(model,test_image,test_label ):
 
 |피부질환   |개수|Train_data|Test_data|Validtion|
 |---|:---:|:---:|:---:|:---:|
-| 맨살|1010|808|202|202|
+| 맨살 |1010|808|202|202|
 | 티눈  |437|350|87|87|
 | 사마귀  |1068|855|213|213|
-| total  |2515|2013|502|502|
+| **total**  |**2515**|**2013**|**502**|**502**|
 
-##Learning rate(acc)
-|   |classifier|0.001|0.0005|0.0001|
-|---|:---:|:---:|:---:|:---:|
-| Metric Learning|0.8749|0.8749|0.8659|
-| 0.01 |437|0.8749|0.8749|0.8659|
-| 0.001 |1068|855|213|213|
-| 0.0005  |2515|2|502|502|
+## Learning rate(acc)
+
+Metric learning을 학습시킬 때와 Classifier를 학습 시킬 때 각각 learning rate를 다르게 주는 것이 가장 좋은 결과가 나왔다
+
+![learing](https://user-images.githubusercontent.com/69561492/121500257-1af21d00-ca19-11eb-9795-a03710f3bfe2.PNG)
+
+## 모델 결과 비교
+
+### Naive 
+
+다음 그림은 Metric Learning와 ImageNet 가중치를 적용하지 않고 데이터 증강만 시킨 모델의 학습 결과를 보여준다.  
+티눈의 데이터 2배가량 부족한 이유 탓인지 티눈에 대한 학습이 이루어지지 않은 것을 확인할 수 있다.  
+정확도는 60.8%가 나왔지만, F1 Score로 확인해본 결과 55.4%로 더욱 낮은 평가 결과가 나옴으로써 불균형한 학습이 이루어진 것을 확인할 수 있다.  
+
+  
+![naive_count](https://user-images.githubusercontent.com/69561492/121501446-390c4d00-ca1a-11eb-9bf7-8ae68caad3fb.PNG)
+
+
+### InceptionV3
+
+다음은 InceptionV3 Network에 ImageNet 가중치로 전이 학습, 데이터 증강, 미세조정을 시킨 결과이다.  
+미세조정을 하기 전엔 64% 정확도로, Naive 모델을 사용했을 때와 큰 차이를 보이진 않았지만, 미세조정을 시킨 후 결과는 89.9%의 정확도를 보였고 F1 Score에서도 89.8%가 나옴으로써 이전 모델보단 균등한 학습이 이루어졌음을 확인할 수 있다. 그러나 우수한 결과라고 판단하긴 힘들다.
+
+![inception_only_weight](https://user-images.githubusercontent.com/69561492/121503406-019ea000-ca1c-11eb-91ef-36e40e1ee18b.PNG)
+
+아래는 Deep Metric Learning 기법의 하나인 Triplet Embedding(Semi-hard Loss 이용) 방식을 이용하여 학습을 시킨 결과이다. 정확도는 90.9%이고 F1 Score는 90.8%로 미세조정을 사용했을 때보다 미세하게 성능이 향상되었다.
+
+![inception_triplet](https://user-images.githubusercontent.com/69561492/121503550-2266f580-ca1c-11eb-92f1-c27414bc7172.PNG)
+
+
+### MobileNet
+다음 표는 MobileNet에 적용한 학습 방법들과 그 결과를 정리해놓은 것이다.
+결과를 보면 알 수 있듯 이전 네트워크를 사용한 것보다 MobileNet에서의 결과가 더 좋은 것을 볼 수 있다.   
+ 여러 방식을 시도해보다 데이터 증강을 시키는 것 보다 시키지 않았을 때 모델의 성능이 올라간다는 것을 발견했다.  
+ Triplet Semi-hard Loss 이후의 방식들은 모두 데이터 증강을 적용하지 않았다.
+
+|Method  |VAL|
+|---|:---:|
+|Classifier only |91.2%±1.3|
+|Fine Tuning   |91.5%±1.5|
+|  Triplet Semi-hard Loss |92.5%±1.5|
+| Triplet Semi-hard Loss **(without augmentation)**|94.6%±1|
+|  Triplet Hard Loss|93.0%±1|
+|  Contrastive Loss |91.0%±2|
+|  Lifted Structed Loss |95.8%±2|
+
+  
+
+다음은 Lifted Structed Loss를 이용하여 97%의 가장 높은 정확도를 기록한 결과이다.  
+
+![Lifted STruct coun](https://user-images.githubusercontent.com/69561492/121505951-3f042d00-ca1e-11eb-9ca2-550374ec8206.PNG)
+
+
+![lifted_norm](https://user-images.githubusercontent.com/69561492/121506042-56dbb100-ca1e-11eb-8f26-face91992e5d.png)
+
