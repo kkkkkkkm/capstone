@@ -184,3 +184,4 @@ def confusion_norm(model,test_image,test_label ):
 ```
 
 
+## 결과 
