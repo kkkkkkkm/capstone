@@ -10,8 +10,8 @@ Xeon silver 4210
 
 ## 코드 설명 
 
-관련 모듈 import
-checkpoint는 callback 함수를 이용해 모델을 저장 할 위치
+관련 모듈 import  
+checkpoint는 callback 함수를 사용할 때 모델을 저장 할 위치 지정
 
 ```python
 from glob import glob
@@ -120,7 +120,7 @@ train_ds = (train_ds.shuffle(1975).map(augment,
 ```
 
 
- Ensemble 기법 사용, 처음 Triplet Loss로 학습 할 때 loss가 0.4 ~ 0.8 까지 값의 변동이 컸음.
+ Ensemble 기법 사용, 처음 Triplet Semi-hard Loss로 학습 할 때 loss가 0.4 ~ 0.8 까지 값의 변동이 컸음.
  loss가 0.4에 수렴하는 경우엔 이후 분류 학습에서 괜찮은 결과가 나왔지만 0.8에서 끝나는 경우는 결과가 잘 나오지 않았음.  
  loss의 변동값을 줄이기 위하여 사용
 ```python
@@ -183,7 +183,7 @@ def confusion_mat(model,test_image,test_label):
 
 ```
 
-Nomalize 시킨 Confusion Matrix
+Nomalized 시킨 Confusion Matrix를 보기 위한 
 ```python
 def confusion_norm(model,test_image,test_label ):
     predictions = model.predict(test_image)
@@ -234,10 +234,10 @@ Metric learning을 학습시킬 때와 Classifier를 학습 시킬 때 각각 le
 
 
 ### MobileNet
-다음 표는 MobileNet에 적용한 학습 방법들과 그 결과를 정리해놓은 것이다.
+다음 표는 MobileNet에 적용한 학습 방법들과 그 결과를 정리해놓은 것이다.  
 결과를 보면 알 수 있듯 이전 네트워크를 사용한 것보다 MobileNet에서의 결과가 더 좋은 것을 볼 수 있다.   
  여러 방식을 시도해보다 데이터 증강을 시키는 것 보다 시키지 않았을 때 모델의 성능이 올라간다는 것을 발견했다.  
- Triplet Semi-hard Loss 이후의 방식들은 모두 데이터 증강을 적용하지 않았다.
+ Triplet Semi-hard Loss 이후의 방식들은 모두 데이터 증강을 적용하지 않았다.  
 
 |Method  |VAL|
 |---|:---:|
