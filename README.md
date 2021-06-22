@@ -203,6 +203,11 @@ def confusion_norm(model,test_image,test_label ):
 | 사마귀  |1068|855|213|213|
 | **total**  |**2515**|**2013**|**502**|**502**|
 
+
+데이터가 적어 일반적인 방식으로는 전혀 학습이 되지 않는다.
+그래서 이번 과제에선 Deep Matric Learning을 이용하여 학습을 시켜보았다.
+
+
 ## Learning rate(acc)
 
 Metric learning을 학습시킬 때와 Classifier를 학습 시킬 때 각각 learning rate를 다르게 주는 것이 가장 좋은 결과가 나왔다
