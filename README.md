@@ -1,4 +1,12 @@
-# 7조 캡스톤 주제: 이미지 처리를 통한 사마귀와 티눈 분류 
+<div align="center">
+ 
+# 캡스톤
+[이미지 처리를 통한 사마귀와 티눈 분류](https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11322993)
+
+</div>
+
+---
+
 
 ## 도구
 GTX 2080Ti  
