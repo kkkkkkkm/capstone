@@ -1,6 +1,6 @@
 <div align="center">
  
-# 캡스톤
+# 캡스톤디자인 프로젝트 
 [이미지 처리를 통한 사마귀와 티눈 분류](https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11322993)
 
 </div>
